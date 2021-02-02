@@ -18,11 +18,11 @@ unsigned char deauth_packet[PACKET_SIZE+1] =
 
 
 int main(int argc, char* argv[]) {
-	// check syntax
-	if (argc < 3) {
-		usage();
-		return -1;
-	}
+    // check syntax
+    if (argc < 3) {
+        usage();
+        return -1;
+    }
 
     char *dev = argv[1];
     char *_ap_mac = argv[2];
@@ -30,13 +30,13 @@ int main(int argc, char* argv[]) {
     if (argc >= 4) _st_mac = argv[3];
     else _st_mac = "FF:FF:FF:FF:FF:FF";
 
-	// open my network interface
-	char errbuf[PCAP_ERRBUF_SIZE];
-	pcap_t* handle = pcap_open_live(dev, BUFSIZ, 1, 1, errbuf);
-	if (handle == nullptr) {
-		fprintf(stderr, "Error: could not open device %s. (%s)\n", dev, errbuf);
-		return -1;
-	}
+    // open my network interface
+    char errbuf[PCAP_ERRBUF_SIZE];
+    pcap_t* handle = pcap_open_live(dev, BUFSIZ, 1, 1, errbuf);
+    if (handle == nullptr) {
+        fprintf(stderr, "Error: could not open device %s. (%s)\n", dev, errbuf);
+        return -1;
+    }
 
     MacAddr ap_mac, st_mac;
     ap_mac.set_mac_addr(_ap_mac);
@@ -57,14 +57,14 @@ int main(int argc, char* argv[]) {
         }
     } while (sleep(1) == 0);
 
-	pcap_close(handle);
+    pcap_close(handle);
 
-	return 0;
+    return 0;
 }
 
 
 void usage()
 {
-	printf("syntax : deauth-attack <interface> <ap mac> [<station mac>]\n");
-	printf("sample : deauth-attack mon0 00:11:22:33:44:55 66:77:88:99:AA:BB\n");
+    printf("syntax : deauth-attack <interface> <ap mac> [<station mac>]\n");
+    printf("sample : deauth-attack mon0 00:11:22:33:44:55 66:77:88:99:AA:BB\n");
 }
